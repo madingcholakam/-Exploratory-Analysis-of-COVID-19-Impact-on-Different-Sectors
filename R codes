@@ -1,0 +1,38 @@
+# Load necessary libraries
+library(readxl)
+library(dplyr)
+library(ggplot2)
+
+# Step 1: Read the Excel file
+file_path <- "C:\Users\USER\Desktop\John_Data cleaning"  
+sheet_names <- excel_sheets(file_path)  
+print(sheet_names)
+
+# Load the first sheet as an example
+data <- read_excel(file_path, sheet = "Pivot Table")  
+print(head(data))
+
+# Step 2: Inspect the data
+# Check the structure of the dataset
+str(data)
+
+# Summary statistics for numerical columns (if any)
+summary(data)
+
+# Step 3: Data Cleaning (if necessary)
+# Rename columns to make them easier to use
+colnames(data) <- make.names(colnames(data))
+
+# Step 4: Data visualization
+# Example bar plot for one of the columns (adjust based on your data structure)
+ggplot(data, aes(x = Row.Labels, y = Grand.Total, fill = Row.Labels)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Bar Plot of Grand Total by Row Labels", x = "Row Labels", y = "Grand Total") +
+  theme_minimal()
+
+# Step 5: Hypothesis testing or advanced analysis (if relevant)
+# If there are categorical variables, perform a chi-squared test (adjust based on the data)
+# chisq.test(table(data$Column1, data$Column2))
+
+# Save processed data (optional)
+# write.csv(data, "processed_data.csv", row.names = FALSE)
